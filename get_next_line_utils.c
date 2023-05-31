@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:39:23 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/05/31 14:20:39 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:54:58 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ size_t	ft_strlen(char *s)
 		i++;
 	return (i);
 }
-
-/*Función que retorna un puntero a la primera aparición de el caracter c*/
 
 char	*ft_strchr(char *s, int c)
 {

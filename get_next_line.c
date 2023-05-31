@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:41:35 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/05/31 14:21:42 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:09:04 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_next_line(int fd)
 	static char	*str;
 	char		*line;
 
+	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	str = ft_read(fd, str);
@@ -27,17 +28,15 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-//Read the first line of a fd
 char	*ft_read(int fd, char *str)
 {
 	char	*buffer;
 	int		bytes;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	bytes = 1;
-	//Itera mientras los bytes leídos no sean 0 y no se encuentre '\n' en la str.
 	while (bytes != 0 && !ft_strchr(str, '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
@@ -50,10 +49,8 @@ char	*ft_read(int fd, char *str)
 		str = ft_strjoin(str, buffer);
 	}
 	free(buffer);
-	return(str);
+	return (str);
 }
-
-//Del buffer leído, retorna la primera línea
 
 char	*ft_getline(char *full_str)
 {
@@ -83,7 +80,7 @@ char	*ft_getline(char *full_str)
 	return (line);
 }
 
-char *ft_getmem(char *str)
+char	*ft_getmem(char *str)
 {
 	int		i;
 	int		j;
@@ -99,7 +96,10 @@ char *ft_getmem(char *str)
 	}
 	mem = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!mem)
+	{
+		free(str);
 		return (NULL);
+	}
 	i++;
 	j = 0;
 	while (str[i] != '\0')

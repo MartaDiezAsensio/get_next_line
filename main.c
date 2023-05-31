@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:20:24 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/05/31 14:22:55 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:02:29 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main()
 	}
 
 	int i = 0;
-	while (i < 2)
+	while (i < 4)
 	{
 		line = get_next_line(fd);
 		printf("%s\n", line);
