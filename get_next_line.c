@@ -6,15 +6,22 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:41:35 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/05/31 21:09:04 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/06/07 20:51:40 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char *true_free(char **ptr)
+{
+	free(ptr);
+	*ptr = NULL;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str = NULL;
 	char		*line;
 
 	line = NULL;
@@ -24,6 +31,14 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (NULL);
 	line = ft_getline(str);
+	if (!line)
+	{
+		free(str);
+		str = NULL;
+		return (NULL);
+	}
+	//if (!line)
+	//	return(true_free(&str));
 	str = ft_getmem(str);
 	return (line);
 }
@@ -34,8 +49,10 @@ char	*ft_read(int fd, char *str)
 	int		bytes;
 
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
+	if (!buffer){
+		free(str);
 		return (NULL);
+	}
 	bytes = 1;
 	while (bytes != 0 && !ft_strchr(str, '\n'))
 	{
@@ -43,6 +60,7 @@ char	*ft_read(int fd, char *str)
 		if (bytes == -1)
 		{
 			free(buffer);
+			free(str);
 			return (NULL);
 		}
 		buffer[bytes] = '\0';
@@ -62,7 +80,10 @@ char	*ft_getline(char *full_str)
 		return (NULL);
 	while (full_str[i] && full_str[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
+	if (full_str[i] == '\n')
+		line = (char *)malloc(sizeof(char) * (i + 2));
+	else
+		line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!line)
 		return (NULL);
 	i = 0;
