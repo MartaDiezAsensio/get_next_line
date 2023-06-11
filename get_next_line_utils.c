@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:39:23 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/06/11 20:43:27 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:48:32 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,25 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_aux(char *s1, char *s2, char *str)
 {
 	size_t	i;
 	size_t	j;
+
+	i = -1;
+	j = 0;
+	if (s1)
+		while (s1[++i] != '\0')
+			str[i] = s1[i];
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (str);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
 	char	*str;
 
 	if (!s1)
@@ -60,14 +75,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		free(s1);
 		return (NULL);
 	}
-	i = -1;
-	j = 0;
-	if (s1)
-		while (s1[++i] != '\0')
-			str[i] = s1[i];
-	while (s2[j] != '\0')
-		str[i++] = s2[j++];
-	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	free(s1);
+	str = ft_aux(s1, s2, str);
 	return (str);
 }
