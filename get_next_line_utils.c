@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:39:23 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/06/07 20:51:36 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:43:27 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		free(s1);
 		return (NULL);
 	}
-	// if (str == NULL)
-	// 	true_free(&s1);
 	i = -1;
 	j = 0;
 	if (s1)

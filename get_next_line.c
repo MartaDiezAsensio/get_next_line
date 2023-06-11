@@ -6,18 +6,11 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:41:35 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/06/07 20:51:40 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:43:14 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char *true_free(char **ptr)
-{
-	free(ptr);
-	*ptr = NULL;
-	return (NULL);
-}
 
 char	*get_next_line(int fd)
 {
@@ -37,8 +30,6 @@ char	*get_next_line(int fd)
 		str = NULL;
 		return (NULL);
 	}
-	//if (!line)
-	//	return(true_free(&str));
 	str = ft_getmem(str);
 	return (line);
 }
