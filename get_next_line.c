@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:41:35 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/06/11 20:43:14 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/06/11 21:07:47 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,38 @@ char	*ft_read(int fd, char *str)
 	int		bytes;
 
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer){
-		free(str);
-		return (NULL);
-	}
+	if (!buffer)
+		return (free_param(str, NULL));
 	bytes = 1;
 	while (bytes != 0 && !ft_strchr(str, '\n'))
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
-		{
-			free(buffer);
-			free(str);
-			return (NULL);
-		}
+			return (free_param(str, buffer));
 		buffer[bytes] = '\0';
 		str = ft_strjoin(str, buffer);
 	}
 	free(buffer);
 	return (str);
+}
+
+char	*ft_lineaux(char *full_str, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (full_str[i] && full_str[i] != '\n')
+	{
+		line[i] = full_str[i];
+		i++;
+	}
+	if (full_str[i] == '\n')
+	{
+		line[i] = full_str[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
 }
 
 char	*ft_getline(char *full_str)
@@ -77,18 +90,7 @@ char	*ft_getline(char *full_str)
 		line = (char *)malloc(sizeof(char) * (i + 1));
 	if (!line)
 		return (NULL);
-	i = 0;
-	while (full_str[i] && full_str[i] != '\n')
-	{
-		line[i] = full_str[i];
-		i++;
-	}
-	if (full_str[i] == '\n')
-	{
-		line[i] = full_str[i];
-		i++;
-	}
-	line[i] = '\0';
+	line = ft_lineaux(full_str, line);
 	return (line);
 }
 
@@ -102,16 +104,10 @@ char	*ft_getmem(char *str)
 	while (str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (!str[i])
-	{
-		free(str);
-		return (NULL);
-	}
+		return (free_param(str, NULL));
 	mem = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	if (!mem)
-	{
-		free(str);
-		return (NULL);
-	}
+		return (free_param(str, NULL));
 	i++;
 	j = 0;
 	while (str[i] != '\0')

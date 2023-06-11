@@ -6,7 +6,7 @@
 /*   By: mdiez-as <mdiez-as@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:40:24 by mdiez-as          #+#    #+#             */
-/*   Updated: 2023/05/31 14:21:19 by mdiez-as         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:59:22 by mdiez-as         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ size_t	ft_strlen(char *s);
 char	*ft_read(int fd, char *str);
 char	*ft_getline(char *str);
 char	*ft_getmem(char *str);
+char	*free_param(char *str, char *buffer);
 
 #endif
